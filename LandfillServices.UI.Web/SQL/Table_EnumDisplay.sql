@@ -1,0 +1,23 @@
+﻿
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[EnumDisplay](
+	[ID] [int] IDENTITY(1,1) NOT NULL,
+	[Type] [nvarchar](200) NOT NULL,
+	[Key] [int] NOT NULL,
+	[Display] [nvarchar](400) NOT NULL,
+	[Updated] [datetime] NOT NULL,
+	[Created] [datetime] NOT NULL,
+	[Enable] [int] NOT NULL,
+ 
+ CONSTRAINT [PK_Enum] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+GRANT SELECT, Update, delete , insert ON dbo.[EnumDisplay] TO Public 

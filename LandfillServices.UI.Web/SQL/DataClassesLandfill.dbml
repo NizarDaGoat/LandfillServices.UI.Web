@@ -1,0 +1,194 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="Landfill" Class="DataClassesLandfillDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Table Name="dbo.Broker" Member="Brokers">
+    <Type Name="Broker">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Created" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Updated" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="CompanyName" Type="System.String" DbType="NVarChar(200) NOT NULL" CanBeNull="false" />
+      <Column Name="InternalCode" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="CompanyRegistrationNumber" Type="System.String" DbType="NVarChar(200) NOT NULL" CanBeNull="false" />
+      <Association Name="Broker_ContractsBroker" Member="ContractsBrokers" ThisKey="ID" OtherKey="BrokerID" Type="ContractsBroker" />
+      <Association Name="LandfillUser_Broker" Member="LandfillUser" ThisKey="ID" OtherKey="ID" Type="LandfillUser" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.PassageLandfill" Member="PassageLandfills">
+    <Type Name="PassageLandfill">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Created" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Updated" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="UserID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="DateOfPassage" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Pay" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="LandfillUser_PassageLandfill" Member="LandfillUser" ThisKey="UserID" OtherKey="ID" Type="LandfillUser" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.BrokerAccounting" Member="BrokerAccountings">
+    <Type Name="BrokerAccounting">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Created" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Updated" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="BrokerID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="TransferDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Association Name="BrokerAccounting_BrokerPaymentCommission" Member="BrokerPaymentCommissions" ThisKey="ID" OtherKey="BrokerAccountingID" Type="BrokerPaymentCommission" />
+    </Type>
+  </Table>
+  <Table Name="dbo.BrokerPassageProduct" Member="BrokerPassageProducts">
+    <Type Name="BrokerPassageProduct">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Created" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Updated" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="ContractsBrokerID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ProductName" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Weight" Type="System.Decimal" DbType="Decimal(18,2) NOT NULL" CanBeNull="false" />
+      <Column Name="Date" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Association Name="BrokerPassageProduct_BrokerPaymentCommission" Member="BrokerPaymentCommissions" ThisKey="ID" OtherKey="BrokerPassageProductID" Type="BrokerPaymentCommission" />
+      <Association Name="ContractsBroker_BrokerPassageProduct" Member="ContractsBroker" ThisKey="ContractsBrokerID" OtherKey="ID" Type="ContractsBroker" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.BrokerPaymentCommissions" Member="BrokerPaymentCommissions">
+    <Type Name="BrokerPaymentCommission">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Created" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Updated" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="BrokerPassageProductID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Amount" Type="System.Decimal" DbType="Decimal(18,2) NOT NULL" CanBeNull="false" />
+      <Column Name="PaymentDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="BrokerAccountingID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="BrokerAccounting_BrokerPaymentCommission" Member="BrokerAccounting" ThisKey="BrokerAccountingID" OtherKey="ID" Type="BrokerAccounting" IsForeignKey="true" />
+      <Association Name="BrokerPassageProduct_BrokerPaymentCommission" Member="BrokerPassageProduct" ThisKey="BrokerPassageProductID" OtherKey="ID" Type="BrokerPassageProduct" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ContractsBroker" Member="ContractsBrokers">
+    <Type Name="ContractsBroker">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Created" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Updated" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Number" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="SubscriptionDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Status" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="TerminationDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="BrokerID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="ContractsBroker_BrokerPassageProduct" Member="BrokerPassageProducts" ThisKey="ID" OtherKey="ContractsBrokerID" Type="BrokerPassageProduct" />
+      <Association Name="ContractsBroker_ContratsBrokerRemuneratedSetting" Member="ContratsBrokerRemuneratedSettings" ThisKey="ID" OtherKey="ContratsBrokerID" Type="ContratsBrokerRemuneratedSetting" />
+      <Association Name="Broker_ContractsBroker" Member="Broker" ThisKey="BrokerID" OtherKey="ID" Type="Broker" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ContractsLogistics" Member="ContractsLogistics">
+    <Type Name="ContractsLogistic">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Created" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Updated" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Number" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="SubscriptionDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Status" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="TerminationDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="LogisticsID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="ContractsLogistic_ContratsLogisticsRemuneratedSetting" Member="ContratsLogisticsRemuneratedSettings" ThisKey="ID" OtherKey="ContratsLogisticsID" Type="ContratsLogisticsRemuneratedSetting" />
+      <Association Name="ContractsLogistic_LogisticTurnCollect" Member="LogisticTurnCollects" ThisKey="ID" OtherKey="ContractsLogisticsID" Type="LogisticTurnCollect" />
+      <Association Name="Logistic_ContractsLogistic" Member="Logistic" ThisKey="LogisticsID" OtherKey="ID" Type="Logistic" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ContratsBrokerRemuneratedSettings" Member="ContratsBrokerRemuneratedSettings">
+    <Type Name="ContratsBrokerRemuneratedSetting">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Created" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Updated" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="ContratsBrokerID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ProductName" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Value" Type="System.Decimal" DbType="Decimal(18,2) NOT NULL" CanBeNull="false" />
+      <Column Name="StartDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="EndDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Association Name="ContractsBroker_ContratsBrokerRemuneratedSetting" Member="ContractsBroker" ThisKey="ContratsBrokerID" OtherKey="ID" Type="ContractsBroker" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ContratsLogisticsRemuneratedSettings" Member="ContratsLogisticsRemuneratedSettings">
+    <Type Name="ContratsLogisticsRemuneratedSetting">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Created" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Updated" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="ContratsLogisticsID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="KmInterval" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Value" Type="System.Decimal" DbType="Decimal(18,2) NOT NULL" CanBeNull="false" />
+      <Column Name="StartDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="EndDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Association Name="ContractsLogistic_ContratsLogisticsRemuneratedSetting" Member="ContractsLogistic" ThisKey="ContratsLogisticsID" OtherKey="ID" Type="ContractsLogistic" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.EnumDisplay" Member="EnumDisplays">
+    <Type Name="EnumDisplay">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Type" Type="System.String" DbType="NVarChar(200) NOT NULL" CanBeNull="false" />
+      <Column Name="[Key]" Member="Key" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Display" Type="System.String" DbType="NVarChar(400) NOT NULL" CanBeNull="false" />
+      <Column Name="Updated" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Created" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Enable" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.LandfillUser" Member="LandfillUsers">
+    <Type Name="LandfillUser">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Created" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Updated" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="CompanyCoperateName" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="FirstName" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="LastName" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="Address" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="City" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="Email" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="PhoneNumber" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Type" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Password" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Association Name="LandfillUser_Broker" Member="Broker" ThisKey="ID" OtherKey="ID" Type="Broker" Cardinality="One" />
+      <Association Name="LandfillUser_PassageLandfill" Member="PassageLandfills" ThisKey="ID" OtherKey="UserID" Type="PassageLandfill" />
+      <Association Name="LandfillUser_Logistic" Member="Logistic" ThisKey="ID" OtherKey="ID" Type="Logistic" Cardinality="One" />
+    </Type>
+  </Table>
+  <Table Name="dbo.LogisticAccounting" Member="LogisticAccountings">
+    <Type Name="LogisticAccounting">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Created" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Updated" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="LogisticID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="TransferDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Association Name="LogisticAccounting_LogisticPaymentCommission" Member="LogisticPaymentCommissions" ThisKey="ID" OtherKey="LogisticAccountingID" Type="LogisticPaymentCommission" />
+    </Type>
+  </Table>
+  <Table Name="dbo.LogisticPaymentCommissions" Member="LogisticPaymentCommissions">
+    <Type Name="LogisticPaymentCommission">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Created" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Updated" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="LogisticTurnCollectID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Amount" Type="System.Decimal" DbType="Decimal(18,2) NOT NULL" CanBeNull="false" />
+      <Column Name="PaymentDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="LogisticAccountingID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="LogisticAccounting_LogisticPaymentCommission" Member="LogisticAccounting" ThisKey="LogisticAccountingID" OtherKey="ID" Type="LogisticAccounting" IsForeignKey="true" />
+      <Association Name="LogisticTurnCollect_LogisticPaymentCommission" Member="LogisticTurnCollect" ThisKey="LogisticTurnCollectID" OtherKey="ID" Type="LogisticTurnCollect" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Logistics" Member="Logistics">
+    <Type Name="Logistic">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Created" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Updated" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="CompanyName" Type="System.String" DbType="NVarChar(200) NOT NULL" CanBeNull="false" />
+      <Column Name="InternalCode" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="CompanyRegistrationNumber" Type="System.String" DbType="NVarChar(200) NOT NULL" CanBeNull="false" />
+      <Association Name="Logistic_ContractsLogistic" Member="ContractsLogistics" ThisKey="ID" OtherKey="LogisticsID" Type="ContractsLogistic" />
+      <Association Name="LandfillUser_Logistic" Member="LandfillUser" ThisKey="ID" OtherKey="ID" Type="LandfillUser" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.LogisticTurnCollect" Member="LogisticTurnCollects">
+    <Type Name="LogisticTurnCollect">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Created" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Updated" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="ContractsLogisticsID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Distance" Type="System.Decimal" DbType="Decimal(18,2) NOT NULL" CanBeNull="false" />
+      <Column Name="Date" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Association Name="LogisticTurnCollect_LogisticPaymentCommission" Member="LogisticPaymentCommissions" ThisKey="ID" OtherKey="LogisticTurnCollectID" Type="LogisticPaymentCommission" />
+      <Association Name="ContractsLogistic_LogisticTurnCollect" Member="ContractsLogistic" ThisKey="ContractsLogisticsID" OtherKey="ID" Type="ContractsLogistic" IsForeignKey="true" />
+    </Type>
+  </Table>
+</Database>

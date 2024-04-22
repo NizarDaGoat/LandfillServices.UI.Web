@@ -1,0 +1,415 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="LandfillServices.UI.Web.SiteMaster" %>
+
+<!DOCTYPE html>
+<%--This the Master Page for general Use in most Content pages of this website--%>
+<html lang="en">
+<head runat="server">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Landfill Services </title>
+    <link href="/Content/Personel/style.css" rel="stylesheet" />
+    <link href="/Content/Personel/bootstrap.css" rel="stylesheet" />
+    <link href="/Content/Personel/bootstrap.css.map" rel="stylesheet" />
+    <link href="/Content/Personel/bootstrap.min.css" rel="stylesheet" />
+    <link href="/Content/Personel/bootstrap.min.css.map" rel="stylesheet" />
+    <link href="/Content/Personel/plugins/dataTables/datatables.min.css" rel="stylesheet" />
+   <link href="/Content/Personel/font-awesome/css/font-awesome.css" rel="stylesheet" text-rendering: optimizelegibility; />
+  <link href="/Content/Personel/datapicker/datepicker3.css" rel="stylesheet" />
+  
+    <script src="/Scripts/js/jquery-2.1.1.js"></script>
+    <script src="/Scripts/js/jquery-ui-1.10.4.min.js"></script>
+    <script src="/Scripts/js/jquery-ui.custom.min.js"></script>
+    <script src="/Scripts/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <script src="/Scripts/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+
+    <script src="/Scripts/js/bootstrap.js"></script>
+    <script src="/Scripts/js/bootstrap.min.js"></script>
+    <%--These are all Scripts to edit the size/Coulors/Font etc--%>
+    <script src="/Scripts/js/inspinia.js"></script>
+    <%--<script src="/Scripts/js/plugins/jeditable/jquery.jeditable.js"></script>--%>
+
+    <asp:PlaceHolder runat="server">
+        <%: Scripts.Render("~/bundles/modernizr") %>
+    </asp:PlaceHolder>
+
+    <webopt:BundleReference runat="server" Path="~/Content/css" />
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+
+    <style type="text/css">
+        .dataTables_length {
+            display: inline-block;
+        }
+
+        .dataTables_filter {
+            display: inline-block;
+            /*float: right;*/
+            padding-left: 40px;
+            font-size: 14px;
+        }
+
+        .dt-buttons {
+            float: right;
+        }
+
+        .dataTables_info {
+            display: inline-block;
+        }
+
+        .dataTables_paginate {
+            display: inline-block;
+            float: right;
+        }
+
+        div.dataTables_wrapper div.dataTables_length select {
+            width: 80px;
+        }
+    </style>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <asp:ScriptManager ID="ScriptManager1" runat="server" EnableScriptGlobalization="true"
+            EnableScriptLocalization="true">
+        </asp:ScriptManager>
+        <asp:HiddenField ID="MemoireTab" Value="0" runat="server" />
+
+        <div id="wrapper">
+            <nav class="navbar-default navbar-static-side" role="navigation">
+                <div class="sidebar-collapse">
+                    <ul class="nav navMemory nav-first-level" id="side-menu">
+                        <li class="nav-header">
+                            <div class="dropdown profile-element">
+                                <span>
+                                    <img alt="image" class="img-rounded img-responsive" src="/UI/Images/UserPicture.png" />
+                                    <%--Displays a picture and the SRC is the like the URL version for Images--%>
+                                </span>
+                                <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                                    <span class="clear"></span></a>
+                            </div>
+                            <div class="logo-element">
+                                IN+
+                            </div>
+                        </li>
+                        <li runat="server" id="dashboard">
+                            <a name="MemMenu1" href="/UI/StatistiquesData.aspx"><span class="nav-label">Dashboard&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></a>
+                            &nbsp;</li>
+                 
+                        <li runat="server" id="UserList">
+                            <a name="MemMenu1" href="/UI/UserList.aspx"><span class="nav-label">User List&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></a>
+                            &nbsp;<%-- Displays the clickbutton for the content page User List--%></li>
+                        <li runat="server" id="EditUser">
+                            <a name="MemMenu2" href="/UI/EditUser.aspx"><span class="nav-label">Add New User&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></a>
+                            &nbsp;<%-- Displays the clickbutton for the content page Edit User--%></li>
+                        <li runat="server" id="PassageOfLandfillList">
+                            <a name="MemMenu3" href="/UI/PassageLandfillList.aspx"><span class="nav-label">Passage List&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></a>
+                            &nbsp;<%-- Displays the clickbutton for the content page Passage Landfill List--%></li>
+                        <li runat="server" id="PassageOfLandfillListByUserID">
+                            <a name="MemMenu4" href="/UI/PassageLandfillListByUser.aspx"><span class="nav-label">Passage List&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></a>
+                            &nbsp;<%-- Displays the clickbutton for the content page Passage Landfill list by user ID only level 3 authority as public dont need to see other peoples Landfill infomation--%></li>
+                        <li runat="server" id="BrokerEdit">
+                            <a name="MemMenu5" href="/UI/BrokerEdit.aspx"><span class="nav-label">Broker Edit&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></a>
+                            &nbsp;</li>
+                        <li runat="server" id="BrokerList">
+                            <a name="MemMenu6" href="/UI/BrokerList.aspx"><span class="nav-label">Broker List&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></a>
+                            &nbsp;</li>
+                        <li runat="server" id="LogisticEdit">
+                            <a name="MemMenu7" href="/UI/LogisticEdit.aspx"><span class="nav-label">Logistic Edit&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></a>
+                            &nbsp;</li>
+                        <li runat="server" id="LogisticList">
+                            <a name="MemMenu8" href="/UI/LogisticList.aspx"><span class="nav-label">Logistic List&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></a>
+                            &nbsp;</li>
+                        <li runat="server" id="ContractsBrokerEdit">
+                            <a name="MemMenu9" href="/UI/ContractsBrokerEdit.aspx"><span class="nav-label">Contracts Broker Edit</span></a>
+                        </li>
+                        <li runat="server" id="ContractsLogisticEdit">
+                            <a name="MemMenu15" href="/UI/ContractsLogisticEdit.aspx"><span class="nav-label">Contracts Logistic Edit</span></a>
+                        </li>
+                        <li runat="server" id="ContractsBrokerList">
+                            <a name="MemMenu10" href="/UI/ContractsBrokerList1.aspx"><span class="nav-label">Contracts Broker List</span></a>
+                        </li>
+                        <li runat="server" id="ContractsLogisticList">
+                            <a name="MemMenu16" href="/UI/ContractsLogisticList.aspx"><span class="nav-label">Contracts Logistic List</span></a>
+                        </li>
+                        <li runat="server" id="BrokerPassageProductEdit">
+                            <a name="MemMenu11" href="/UI/BrokerPassageProductEdit.aspx"><span class="nav-label">Broker Passage Product Edit</span></a>
+                        </li>
+                        <li runat="server" id="LogisticTurnCollectEdit">
+                            <a name="MemMenu17" href="/UI/LogisticTurnCollectEdit.aspx"><span class="nav-label">Logistic Turn Collect Edit</span></a>
+                        </li>
+                        <li runat="server" id="BrokerPassageProductList">
+                            <a name="MemMenu12" href="/UI/BrokerPassageProductList.aspx"><span class="nav-label">Broker Passage Product List</span></a>
+                        </li>
+                        <li runat="server" id="LogisticTurnCollectList">
+                            <a name="MemMenu18" href="/UI/LogisticTurnCollectList.aspx"><span class="nav-label">Logistic Turn Collect List</span></a>
+                        </li>
+                        <li runat="server" id="BrokerPaymentCommissionList">
+                            <a name="MemMenu13" href="/UI/BrokerPaymentCommissionList.aspx"><span class="nav-label">Broker Payment Commissions</span></a>
+                        </li>
+                        <li runat="server" id="LogisticPaymentCommissionList">
+                            <a name="MemMenu19" href="/UI/LogisticPaymentCommissionList.aspx"><span class="nav-label">Logistic Payment Commissions</span></a>
+                        </li>
+                        <li runat="server" id="BrokerCommissionsForAccounting">
+                            <a name="MemMenu14" href="/UI/BrokerCommissionsForAccounting.aspx"><span class="nav-label">Broker commissions to accounting</span></a>
+                        </li>
+                        <li runat="server" id="LogisticCommissionsForAccounting">
+                            <a name="MemMenu20" href="/UI/LogisticCommissionsForAccounting.aspx"><span class="nav-label">Logistic commissions to accounting</span></a>
+                        </li>
+                </div>
+            </nav>
+
+            <div id="page-wrapper" class="gray-bg">
+                <div class="row border-bottom">
+                    <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
+                        <div class="navbar-header">
+                            <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i></a>
+                        </div>
+
+                        <ul class="nav navbar-top-links navbar-right">
+                            <li>
+                                <span class="m-r-sm text-muted welcome-message">Welcome to your LandFill Services space </span>
+                                <%-- Text at the top to Welcome the client--%>
+                            </li>
+
+                            <li>
+                                <asp:LinkButton ID="LinkButtonDeconnexion" runat="server" CssClass="btn btn-w-m btn-white" OnClick="LinkButtonDeconnexion_Click" BackColor="#f3f3f4" BorderColor="#f3f3f4"><i class="fa fa-power-off"></i>&nbsp;Sign Out</asp:LinkButton>
+                                <%-- Signs out of your current page and directs you to the Sign in Content Page--%>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+
+                <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+                </asp:ContentPlaceHolder>
+
+                <div class="footer">
+                    <div>
+                        <strong>Copyright</strong> LandFill Services &copy; 2024
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <!-- Mainly scripts -->
+
+    <script src="/Scripts/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <script src="/Scripts/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+    <script src="/Scripts/js/plugins/jeditable/jquery.jeditable.js"></script>
+    <!-- Flot -->
+    <script src="/Scripts/js/plugins/flot/jquery.flot.js"></script>
+    <script src="/Scripts/js/plugins/flot/jquery.flot.tooltip.min.js"></script>
+    <script src="/Scripts/js/plugins/flot/jquery.flot.spline.js"></script>
+    <script src="/Scripts/js/plugins/flot/jquery.flot.resize.js"></script>
+    <script src="/Scripts/js/plugins/flot/jquery.flot.pie.js"></script>
+
+    <!-- Peity -->
+    <script src="/Scripts/js/plugins/peity/jquery.peity.min.js"></script>
+    <script src="/Scripts/js/demo/peity-demo.js"></script>
+
+    <!-- Custom and plugin javascript -->
+
+    <script src="/Scripts/js/plugins/pace/pace.min.js"></script>
+    <script src="/Scripts/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+
+    <!-- jQuery UI -->
+    <script src="/Scripts/js/plugins/jquery-ui/jquery-ui.min.js"></script>
+    <!-- Data picker -->
+    <script src="/Scripts/js/plugins/datapicker/bootstrap-datepicker - Copy.js"></script>
+
+    <!-- GITTER -->
+    <script src="/Scripts/js/plugins/gritter/jquery.gritter.min.js"></script>
+
+    <!-- Sparkline -->
+    <script src="/Scripts/js/plugins/sparkline/jquery.sparkline.min.js"></script>
+
+    <!-- Sparkline demo data  -->
+    <script src="/Scripts/js/demo/sparkline-demo.js"></script>
+
+    <!-- ChartJS-->
+    <script src="/Scripts/js/plugins/chartJs/Chart.min.js"></script>
+
+
+    <!-- JSKnob -->
+    <script src="/Scripts/js/plugins/jsKnob/jquery.knob.js"></script>
+    <!-- iCheck -->
+    <script src="/Scripts/js/plugins/iCheck/icheck.min.js"></script>
+    <!-- Input Mask-->
+    <script src="/Scripts/js/plugins/jasny/jasny-bootstrap.min.js"></script>
+    <!-- Chosen -->
+    <script src="/Scripts/js/plugins/chosen/chosen.jquery.js"></script>
+
+    <!-- NouSlider -->
+    <script src="/Scripts/js/plugins/nouslider/jquery.nouislider.min.js"></script>
+
+    <!-- Switchery -->
+    <script src="/Scripts/js/plugins/switchery/switchery.js"></script>
+
+    <!-- IonRangeSlider -->
+    <script src="/Scripts/js/plugins/ionRangeSlider/ion.rangeSlider.min.js"></script>
+    <!-- Data Tables -->
+    <script src="/Scripts/js/plugins/dataTables/datatables.min.js"></script>
+    <script src="/Scripts/js/plugins/dataTables/datatables.bootstrap.js"></script>
+    <script src="/Scripts/js/plugins/dataTables/datatables.tableTools.js"></script>
+    <script src="/Scripts/js/plugins/jeditable/jquery.jeditable.js"></script>
+    <!-- Steps -->
+    <script src="/Scripts/js/plugins/staps/jquery.steps.min.js"></script>
+    <!-- DROPZONE -->
+    <script src="/Scripts/js/plugins/dropzone/dropzone.js"></script>
+    <!-- Nestable List -->
+    <script src="/Scripts/js/plugins/nestable/jquery.nestable.js"></script>
+    <!-- Clock picker -->
+    <script src="/Scripts/js/plugins/clockpicker/clockpicker.js"></script>
+    <!-- Clock picker -->
+    <script src="/Scripts/js/plugins/clockpicker/clockpicker.js"></script>
+    <!-- Sparkline -->
+    <script src="/Scripts/js/plugins/sparkline/jquery.sparkline.min.js"></script>
+
+    <!-- Data Tables -->
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(".SelecteurGridView > div > table").addClass("table table-striped table-bordered table-hover dataTable no-footer dtr-inline");
+            $("table.grid").each(function () {
+                var jTbl = $(this);
+                if (jTbl.find("tbody>tr>th").length > 0) {
+                    jTbl.find("tbody").before("<thead><tr></tr></thead>");
+                    jTbl.find("thead:first tr").append(jTbl.find("th"));
+                    jTbl.find("tbody tr:first").remove();
+                }
+            });
+        });
+    </script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+
+            $('#data_1 .input-group.date').datepicker({
+                todayBtn: "linked",
+                keyboardNavigation: false,
+                forceParse: false,
+                calendarWeeks: true,
+                format: 'dd/mm/yyyy',
+                autoclose: true
+            });
+
+
+            /***table data**/
+            $('.dataTables-example').dataTable({
+                responsive: true,
+                dom: 'lfBtip',
+                "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
+                "oLanguage": {
+                    oAria: { sSortAscending: ": activate to sort column ascending", sSortDescending: ": activate to sort column descending" },
+                    oPaginate: { sFirst: "Fist page", sLast: "Last page", sNext: "Next page", sPrevious: "Previous page" },
+                    sEmptyTable: "No data...",
+                    sInfo: "Showing _START_ to _END_ of _TOTAL_ entries",
+                    sInfoEmpty: "Showing 0 to 0 of 0 entries",
+                    sInfoFiltered: "(filtering for _MAX_ records)",
+                    sInfoPostFix: "",
+                    sDecimal: "",
+                    sThousands: ",",
+                    sLengthMenu: "_MENU_  Per page",
+                    sLoadingRecords: "Loading...",
+                    sProcessing: "Processing...",
+                    sSearch: "Search:",
+                    sSearchPlaceholder: "",
+                    sUrl: "",
+                    sZeroRecords: "No matching records found.",
+                },
+                buttons: ['copy', {
+                    extend: 'csvHtml5',
+                    fieldSeparator: ';',
+                    charset: 'UTF-16LE',
+                    text: 'Excel',
+                }, 'pdf', 'print']
+            });
+            $('.dataTables-example').attr('style', 'width:100%;');
+
+
+            $('.dataTables-without-controls').dataTable({
+                responsive: true,
+                paging: false,
+                searching: false,
+                info: false
+            });
+            $('.dataTables-without-controls').attr('style', 'width:100%;');
+
+            var table = $('.dataTables-without-controls-total').DataTable({
+                "footerCallback": function (row, data, start, end, display) {
+                    this.api().columns('.sum').every(function () {
+                        var column = this;
+                        var data;
+                        var intVal = function (i) {
+                            return typeof i === 'string' ? i.replace(/[\$,]/g, '') * 1 : typeof i === 'number' ? i : 0;
+                        };
+                        total = column.data().reduce(function (a, b) {
+                            var bb = strip_tags(b);
+                            bb = bb.replace(",", ".");
+                            return intVal(a) + intVal(bb);
+                        }, 0);
+                        total = parseFloat(total);
+                        if (total != 0)
+                            $(column.footer()).html(total.toFixed(2));
+                    })
+                },
+                responsive: true,
+                paging: false,
+                searching: false,
+                info: false,
+            });
+            $('.dataTables-without-controls-total').attr('style', 'width:100%;');
+
+
+            var updateOutput = function (e) {
+                var list = e.length ? e : $(e.target),
+                    output = list.data('output');
+                if (window.JSON) {
+                    output.val(window.JSON.stringify(list.nestable('serialize')));//, null, 2));
+                } else {
+                    output.val('JSON browser support required for this demo.');
+                }
+            };
+
+            $('#nestable2').nestable({
+                group: 1
+            });
+            $('#nestable2').nestable('collapseAll');
+
+           
+
+            $(window).resize(function (e) {
+                clearTimeout(sparkResize);
+                sparkResize = setTimeout(sparklineCharts, 500);
+            });
+
+            sparklineCharts();
+
+
+
+            $(".navMemory li a").on("click", function () {
+                if ($(this).parent().parent().is(".nav-first-level")) {
+                    $.cookie("navigationIzy1", $(this).attr("name"), { path: '/' });
+                    $.removeCookie("navigationIzy2");
+                    $.removeCookie("navigationIzy3");
+                    $.removeCookie("navigationIzy4");
+                }
+                if ($(this).parent().parent().is(".nav-second-level")) {
+                    $.cookie("navigationIzy2", $(this).attr("name"), { path: '/' });
+                    $.removeCookie("navigationIzy3");
+                    $.removeCookie("navigationIzy4");
+                }
+                if ($(this).parent().parent().is(".nav-third-level")) {
+                    $.cookie("navigationIzy3", $(this).attr("name"), { path: '/' });
+                    $.removeCookie("navigationIzy4");
+                }
+                if ($(this).parent().parent().is(".nav-fourth-level")) {
+                    $.cookie("navigationIzy4", $(this).attr("name"), { path: '/' });
+                }
+                $(".nav-second-level").addClass("collapse");
+                $(".nav-third-level").addClass("collapse");
+                $(".nav-fourth-level").addClass("collapse");
+                memoryMenu();
+            });
+            memoryMenu();
+        });
+    </script>
+</body>
+</html>

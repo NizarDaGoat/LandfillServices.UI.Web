@@ -1,0 +1,53 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Register.master.cs" Inherits="LandfillServices.UI.Web.Register" %>
+
+<!DOCTYPE html>
+
+<html>
+<head runat="server">
+    <title>Landfill Servies</title>
+   
+     <link href="/Content/Personel/style.css" rel="stylesheet" />
+  <link href="/Content/Personel/bootstrap.css" rel="stylesheet" />
+  <link href="/Content/Personel/bootstrap.css.map" rel="stylesheet" />
+  <link href="/Content/Personel/bootstrap.min.css" rel="stylesheet" />
+  <link href="/Content/Personel/bootstrap.min.css.map" rel="stylesheet" />
+
+
+  <script src="/Scripts/js/jquery-2.1.1.js"></script>
+  <script src="/Scripts/js/jquery-ui-1.10.4.min.js"></script>
+  <script src="/Scripts/js/jquery-ui.custom.min.js"></script>
+  <script src="/Scripts/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+  <script src="/Scripts/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+  <script src="/Scripts/js/plugins/jeditable/jquery.jeditable.js"></script>
+  <script src="/Scripts/js/bootstrap.js"></script>
+  <script src="/Scripts/js/bootstrap.min.js"></script>
+
+  <script src="/Scripts/js/inspinia.js"></script>
+   
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+
+    <div class="overlay overlay-hugeinc">
+
+        <a href="#">
+            <img class="logo" src="/UI/Images/LandfillLogo.png" alt="Landfill Services logo" /></a>
+
+        <nav>
+
+            <form runat="server">
+
+                <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+                </asp:ContentPlaceHolder>
+
+            </form>
+
+        </nav>
+
+    </div>
+
+
+
+</body>
+</html>
