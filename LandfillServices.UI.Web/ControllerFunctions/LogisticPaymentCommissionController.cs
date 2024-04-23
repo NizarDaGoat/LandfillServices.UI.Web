@@ -62,7 +62,7 @@ namespace LandfillServices.UI.Web.ControllerFunctions
             else if (distance > 50 && distance <= 100)
                 kmInterval = KmInterval.Between_51_and_100;
             else if (distance > 100)
-                kmInterval = KmInterval.Greater_100;
+                kmInterval = KmInterval.Greater_101;
 
             var remurenateLogisticList = ControllerFunctions.ContratsLogisticsRemuneratedSettingController.SearchByContractLogisticID_And_Date_And_Product(contractsLogistic.ID, date, kmInterval);
             if (remurenateLogisticList.Count > 0)

@@ -111,6 +111,13 @@ namespace LandfillServices.UI.Web.ObjectsFunctions
 
             }
         }
+        public string KmIntervalDisplay
+        {
+            get
+            {
+                return ControllerFunctions.EnumDisplayController.SearchByEnumTypeAndKey(typeof(ObjectsFunctions.KmInterval), (int)this.d_ContratsLogisticsRemuneratedSetting.KmInterval);
+            }
+        }
         public decimal Value
         {
             get

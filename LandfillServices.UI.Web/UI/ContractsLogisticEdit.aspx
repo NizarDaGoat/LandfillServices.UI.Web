@@ -89,7 +89,7 @@
                             <asp:GridView ID="GridViewList" runat="server" AutoGenerateColumns="false" DataKeyNames="ID"
                                 OnSelectedIndexChanging="GridViewList_SelectedIndexChanging">
                                 <Columns>
-                                    <asp:BoundField DataField="ProductName" HeaderText="Product Name" SortExpression="ProductName" />
+                                    <asp:BoundField DataField="KmIntervalDisplay" HeaderText="Km interval" SortExpression="KmIntervalDisplay" />
                                       <asp:BoundField DataField="Value" HeaderText="Value(£)" SortExpression="Value" />
                                      <asp:BoundField DataField="StartDateFormatted" HeaderText="start Date" SortExpression="StartDateFormatted" />
                                     <asp:BoundField DataField="EndDateFormatted" HeaderText="End Date" SortExpression="EndDateFormatted" />
@@ -114,9 +114,9 @@
                         </asp:Panel>
                         <div class="form-group">
 
-                            <label class="col-lg-4 control-label">Product</label>
+                            <label class="col-lg-4 control-label">Km interval</label>
                             <div class="col-lg-2">
-                                <asp:DropDownList ID="DropDownListProduct" runat="server">
+                                <asp:DropDownList ID="DropDownListKmInterval" runat="server">
                                 </asp:DropDownList>
                             </div>
                         </div>

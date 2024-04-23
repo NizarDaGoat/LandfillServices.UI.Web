@@ -54,7 +54,7 @@ namespace LandfillServices.UI.Web.UI
                 TextBoxAddress.Text = landfillUser.Address;
                 TextBoxCity.Text = landfillUser.City;
                 TextBoxEmail.Text = landfillUser.Email;
-                TextBoxPassword.Text = landfillUser.Password;
+               // TextBoxPassword.Text = landfillUser.Password;
                 if (landfillUser.Type == 1)
                     RadioButtonListUserType.SelectedValue = "1";
                 else if (landfillUser.Type == 2)
@@ -97,7 +97,7 @@ namespace LandfillServices.UI.Web.UI
                 landfillUser.Address = TextBoxAddress.Text;
                 landfillUser.City = TextBoxCity.Text;
                 landfillUser.Email = TextBoxEmail.Text;
-                landfillUser.Password = TextBoxPassword.Text;
+               
                 if (RadioButtonListUserType.SelectedValue == "1")
                     landfillUser.Type = 1;
                 else if (RadioButtonListUserType.SelectedValue == "2")

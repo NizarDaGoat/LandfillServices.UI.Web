@@ -7,11 +7,12 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Landfill Services </title>
-    <link href="/Content/Personel/style.css" rel="stylesheet" />
+  
     <link href="/Content/Personel/bootstrap.css" rel="stylesheet" />
     <link href="/Content/Personel/bootstrap.css.map" rel="stylesheet" />
     <link href="/Content/Personel/bootstrap.min.css" rel="stylesheet" />
     <link href="/Content/Personel/bootstrap.min.css.map" rel="stylesheet" />
+      <link href="/Content/Personel/style.css" rel="stylesheet" />
     <link href="/Content/Personel/plugins/dataTables/datatables.min.css" rel="stylesheet" />
    <link href="/Content/Personel/font-awesome/css/font-awesome.css" rel="stylesheet" text-rendering: optimizelegibility; />
   <link href="/Content/Personel/datapicker/datepicker3.css" rel="stylesheet" />
@@ -79,7 +80,7 @@
                         <li class="nav-header">
                             <div class="dropdown profile-element">
                                 <span>
-                                    <img alt="image" class="img-rounded img-responsive" src="/UI/Images/UserPicture.png" />
+                                    <img alt="image" class="img-rounded img-responsive" src="/UI/Images/UserPicture.png"  />
                                     <%--Displays a picture and the SRC is the like the URL version for Images--%>
                                 </span>
                                 <a data-toggle="dropdown" class="dropdown-toggle" href="#">

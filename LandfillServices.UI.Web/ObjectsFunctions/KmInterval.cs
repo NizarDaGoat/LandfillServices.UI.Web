@@ -9,6 +9,6 @@ namespace LandfillServices.UI.Web.ObjectsFunctions
     {
         Between_1_and_50=1,
         Between_51_and_100=2,
-        Greater_100 = 3 
+        Greater_101 = 3 
     }
 }

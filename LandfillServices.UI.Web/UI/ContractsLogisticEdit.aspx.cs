@@ -142,7 +142,7 @@ namespace LandfillServices.UI.Web.UI
             PanelAdd.Visible = true;
             this.ContratsLogisticRemuneratedSettingID = contratsLogisticRemuneratedSettingID;
 
-            Utilities.DropDownListUtilities.FillEnumDisplay(DropDownListProduct, typeof(ObjectsFunctions.KmInterval), true);
+            Utilities.DropDownListUtilities.FillEnumDisplay(DropDownListKmInterval, typeof(ObjectsFunctions.KmInterval), true);
 
             var contratsLogisticRemuneratedSetting = ControllerFunctions.ContratsLogisticsRemuneratedSettingController.SearchByID(ContratsLogisticRemuneratedSettingID);
 
@@ -152,7 +152,7 @@ namespace LandfillServices.UI.Web.UI
                 TextBoxStartDate.Text = contratsLogisticRemuneratedSetting.StartDate.ToShortDateString();
                 if (contratsLogisticRemuneratedSetting.EndDate.HasValue)
                     TextBoxEndDate.Text = contratsLogisticRemuneratedSetting.EndDate.Value.ToShortDateString();
-                DropDownListProduct.SelectedValue = ((int)contratsLogisticRemuneratedSetting.KmInterval).ToString();
+                DropDownListKmInterval.SelectedValue = ((int)contratsLogisticRemuneratedSetting.KmInterval).ToString();
             }
         }
 
@@ -174,8 +174,8 @@ namespace LandfillServices.UI.Web.UI
             contratsLogisticRemuneratedSetting.StartDate = Convert.ToDateTime(TextBoxStartDate.Text);
             if (TextBoxEndDate.Text != null && TextBoxEndDate.Text != string.Empty)
                 contratsLogisticRemuneratedSetting.EndDate = Convert.ToDateTime(TextBoxEndDate.Text);
-            if (DropDownListProduct.SelectedIndex > 0)
-                contratsLogisticRemuneratedSetting.KmInterval = (ObjectsFunctions.KmInterval)int.Parse(DropDownListProduct.SelectedValue);
+            if (DropDownListKmInterval.SelectedIndex > 0)
+                contratsLogisticRemuneratedSetting.KmInterval = (ObjectsFunctions.KmInterval)int.Parse(DropDownListKmInterval.SelectedValue);
             ControllerFunctions.ContratsLogisticsRemuneratedSettingController.Save(contratsLogisticRemuneratedSetting);
 
 

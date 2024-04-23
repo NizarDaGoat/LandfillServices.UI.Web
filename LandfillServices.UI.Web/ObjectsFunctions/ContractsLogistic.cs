@@ -55,7 +55,7 @@ namespace LandfillServices.UI.Web.ObjectsFunctions
                 return m_SqlContractsLogistic.Updated;
             }
         }
-        public string BrokerCompanyCoperateName
+        public string LogisticCompanyCoperateName
         {
             get
             {

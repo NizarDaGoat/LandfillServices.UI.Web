@@ -65,7 +65,29 @@ namespace LandfillServices.UI.Web.ControllerFunctions
         {
             return SearchAllByType(type);
         }
+        public static string  SearchByEnumTypeAndKey(Type type,int key)
+        {
+            ObjectsFunctions.EnumDisplay enumDisplay = SearchByEnumType(type).FirstOrDefault(e => e.Key == key);
+            if (enumDisplay != null)
+            {
+                if (enumDisplay.Display.IndexOf("---") >= 0)
+                    return string.Empty;
+                return enumDisplay.Display;
+            }
 
+            string enumString = null;
+
+            try
+            {
+                enumString = Enum.ToObject(type, key)?.ToString();
+                enumString = !string.IsNullOrWhiteSpace(enumString) && !int.TryParse(enumString, out int enumValue) ? enumString : "?";
+            }
+            catch (Exception)
+            {
+            }
+
+            return enumString;
+        }
         #endregion //Search
 
         #region Utilities

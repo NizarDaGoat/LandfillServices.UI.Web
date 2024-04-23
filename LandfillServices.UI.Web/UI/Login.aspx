@@ -8,7 +8,7 @@
         <asp:TextBox ID="TextBoxPassword" name="password" runat="server" TextMode="Password" placeholder="Password" CssClass="form-control"></asp:TextBox><br />
 
         <div id="divErrorConnection" visible="false" runat="server">
-            <p style="font-size: 16px; padding-top: 30px;">Error login or passeword</p>
+            <p style="font-size: 16px; padding-top: 30px; color: crimson">Error login or password</p>
         </div>
 
         <asp:Button ID="Button1" runat="server" Text="Connection" OnClick="Button1_Click" class="button connect" />

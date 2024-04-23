@@ -20,22 +20,33 @@ namespace LandfillServices.UI.Web.UI
             string login = null, psw = null;
             login = TextBoxLogin.Text;
             psw = TextBoxPassword.Text;
- 
-            var user = ControllerFunctions.LandfilluserController.SearchByLoginAndPsw(login, psw);
+
+            var user = ControllerFunctions.LandfilluserController.SearchByLogin(login);
 
             if (user != null)
             {
-                HttpContext.Current.User = user;
-                System.Web.Security.FormsAuthentication.SetAuthCookie(User.Identity.Name, false);
+                var result = BCrypt.Net.BCrypt.Verify(psw, user.Password);
 
-                if (user.Type == 1 || user.Type == 2) //if administrator or operator
+                if (result == true)
                 {
-                    Response.Redirect("/UI/StatistiquesData.aspx");
+                    HttpContext.Current.User = user;
+                    System.Web.Security.FormsAuthentication.SetAuthCookie(User.Identity.Name, false);
+
+                    if (user.Type == 1 || user.Type == 2) //if administrator or operator
+                    {
+                        Response.Redirect("/UI/UserList.aspx");
+                    }
+                    else if (user.Type == 3)
+                    {
+                        Response.Redirect("/UI/PassageLandfillListByUser.aspx");
+
+                    }
                 }
-                else if (user.Type == 3)
+                else
                 {
-                    Response.Redirect("/UI/PassageLandfillListByUser.aspx");
-
+                    HttpContext.Current.User = null;
+                    this.divErrorConnection.Visible = true;
+                    return;
                 }
             }
             else
@@ -44,6 +55,30 @@ namespace LandfillServices.UI.Web.UI
                 this.divErrorConnection.Visible = true;
                 return;
             }
+
+            //var user = ControllerFunctions.LandfilluserController.SearchByLoginAndPsw(login, psw);
+
+            //if (user != null)
+            //{
+            //    HttpContext.Current.User = user;
+            //    System.Web.Security.FormsAuthentication.SetAuthCookie(User.Identity.Name, false);
+
+            //    if (user.Type == 1 || user.Type == 2) //if administrator or operator
+            //    {
+            //        Response.Redirect("/UI/StatistiquesData.aspx");
+            //    }
+            //    else if (user.Type == 3)
+            //    {
+            //        Response.Redirect("/UI/PassageLandfillListByUser.aspx");
+
+            //    }
+            //}
+            //else
+            //{
+            //    HttpContext.Current.User = null;
+            //    this.divErrorConnection.Visible = true;
+            //    return;
+            //}
 
         }
         public static ObjectsFunctions.LandfillUser User
